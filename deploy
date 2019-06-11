@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [[ -r "yagnyam-sms-gateway-fcm-admin.json" ]]; then
+  echo "Usaing yagnyam-sms-gateway-fcm-admin.json as FCM Credential file"  >&2
+else
+  echo "./yagnyam-sms-gateway-fcm-admin.json not found. Can't deploy" >&2
+  exit 1
+fi
+
+gcloud config set project yagnyam-sms-gateway
+./mvnw clean appengine:deploy
