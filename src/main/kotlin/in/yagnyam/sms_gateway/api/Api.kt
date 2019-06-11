@@ -13,19 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.ws.rs.core.MediaType
 
-class ForceArgumentsByName private constructor()
-
 class Request private constructor() {
 
-    constructor(vararg forceByName: ForceArgumentsByName, id: String, appId: String, accessToken: String, phone: String, message: String) : this() {
-        this.id = id
-        this.appId = appId
-        this.accessToken = accessToken
-        this.phone = phone
-        this.message = message
-    }
-
-    lateinit var id: String
+    var id: String? = null
         private set
     lateinit var appId: String
         private set

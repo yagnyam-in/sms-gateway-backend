@@ -15,10 +15,4 @@ class AbstractSpringEnabledServlet : HttpServlet() {
         super.init(config)
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this)
     }
-
-    companion object {
-
-        private val serialVersionUID = 1L
-    }
-
 }

@@ -13,7 +13,7 @@ data class AppEntity(
 )
 
 @Component
-class AppRepository @Autowired constructor(private val firebaseService: FirebaseService, private val customerRepository: CustomerRepository) {
+class AppRepository @Autowired constructor(private val firebaseService: FirebaseService) {
 
     fun getApp(owner: CustomerEntity, id: String): AppEntity? {
         val snapshot = firebaseService.firestore
@@ -22,7 +22,7 @@ class AppRepository @Autowired constructor(private val firebaseService: Firebase
                 .collection("apps")
                 .document(id).get().get()
         return if (snapshot.exists()) {
-            return documentToAppEntity(snapshot)
+            return documentToAppEntity(snapshot).copy(fcmToken = owner.fcmToken)
         } else {
             null
         }
@@ -33,8 +33,7 @@ class AppRepository @Autowired constructor(private val firebaseService: Firebase
         private fun documentToAppEntity(documentSnapshot: DocumentSnapshot): AppEntity {
             return AppEntity(
                     id = documentSnapshot.id,
-                    accessToken = documentSnapshot.getString("accessToken"),
-                    fcmToken = documentSnapshot.getString("fcmToken")
+                    accessToken = documentSnapshot.getString("accessToken")
             )
         }
 

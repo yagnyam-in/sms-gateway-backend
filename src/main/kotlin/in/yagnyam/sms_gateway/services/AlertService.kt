@@ -16,6 +16,7 @@ constructor(private val firebaseService: FirebaseService) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     fun notifyThroughFcm(app: AppEntity, request: RequestEntity) {
+        logger.debug("notify(app: $app, request: $request)")
         val fcmToken = app.fcmToken ?: return
         val message = Message.builder()
                 .setToken(fcmToken)
@@ -30,7 +31,7 @@ constructor(private val firebaseService: FirebaseService) {
             val response = FirebaseMessaging.getInstance().send(message)
             logger.info("Sent {} with response {}", message, response)
         } catch (e: FirebaseMessagingException) {
-            logger.error("Error sending {}", message)
+            logger.error("Error sending Notification", e)
         }
 
     }

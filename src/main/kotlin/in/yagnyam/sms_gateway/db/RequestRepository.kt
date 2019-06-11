@@ -14,7 +14,7 @@ data class RequestEntity(
                 "appId" to appId,
                 "phone" to phone,
                 "message" to message
-        )
+        ).filter { (_, value) -> value != null }
     }
 }
 
